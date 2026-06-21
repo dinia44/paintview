@@ -1,11 +1,10 @@
-import { COLOURS } from "@/data/mock";
+import { COLOURS, DEMO_ROOM_PHOTO } from "@/data/mock";
 import { cn } from "@/lib/cn";
 import { useAppStore } from "@/store/appStore";
 import type { PaintColour } from "@/types";
 import { Check, Heart } from "lucide-react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { DEMO_ROOM_PHOTO } from "@/data/mock";
 import { PrimaryButton, ScreenHeader, ToastStack } from "@/components/ui";
 
 const finishes: PaintColour["finish"][] = ["Matt", "Eggshell", "Satin"];
@@ -42,8 +41,8 @@ export function ColourScreen() {
             type="button"
             onClick={() => setPreviewMode(mode)}
             className={cn(
-              "flex-1 rounded-xl py-2.5 text-sm font-semibold capitalize",
-              previewMode === mode ? "bg-pv-lavender text-pv-purple-dark" : "text-pv-muted"
+              "flex-1 rounded-xl py-2.5 text-sm font-semibold capitalize transition",
+              previewMode === mode ? "bg-pv-purple text-white shadow-sm" : "text-pv-muted"
             )}
           >
             {mode}
@@ -51,7 +50,7 @@ export function ColourScreen() {
         ))}
       </div>
 
-      <div className="relative mx-4 mt-4 overflow-hidden rounded-[24px] border border-pv-border shadow-pv">
+      <div className="relative mx-4 mt-4 overflow-hidden rounded-2xl border border-pv-border shadow-pv">
         <img src={photo} alt="Room preview" className="aspect-[4/3] w-full object-cover" />
         {previewMode === "preview" && (
           <div
@@ -84,7 +83,7 @@ export function ColourScreen() {
         ))}
       </div>
 
-      <div className="mx-4 mt-4 flex items-center gap-4 rounded-[22px] border border-pv-border bg-pv-surface p-4 shadow-sm">
+      <div className="mx-4 mt-4 flex items-center gap-4 rounded-2xl border border-pv-border bg-pv-surface p-4 shadow-sm">
         <div
           className="h-14 w-14 shrink-0 rounded-2xl border border-pv-border"
           style={{ backgroundColor: selected.hex }}
@@ -107,8 +106,8 @@ export function ColourScreen() {
               type="button"
               onClick={() => setFinish(f)}
               className={cn(
-                "rounded-full px-4 py-2 text-sm font-semibold",
-                finish === f ? "bg-pv-charcoal text-white" : "bg-pv-surface border border-pv-border"
+                "rounded-full px-4 py-2 text-sm font-semibold transition",
+                finish === f ? "bg-pv-purple text-white" : "border border-pv-border bg-pv-surface"
               )}
             >
               {f}
@@ -116,6 +115,10 @@ export function ColourScreen() {
           ))}
         </div>
       </div>
+
+      <p className="mx-4 mt-4 text-xs text-pv-muted">
+        Colour preview is approximate. Always confirm with a physical sample.
+      </p>
 
       <div className="mx-4 mt-6">
         <PrimaryButton

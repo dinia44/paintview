@@ -1,5 +1,5 @@
 import { cn } from "@/lib/cn";
-import { Camera, FileText, FolderOpen, Home, Plus, User } from "lucide-react";
+import { FileText, FolderOpen, Home, Plus, User } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const tabs = [
@@ -29,9 +29,9 @@ export function BottomNav() {
                 type="button"
                 onClick={() => navigate("/scan")}
                 aria-label="Scan a room"
-                className="-mt-6 flex h-14 w-14 items-center justify-center rounded-full bg-pv-purple text-white shadow-[0_10px_24px_rgba(124,77,255,0.35)]"
+                className="-mt-6 flex h-14 w-14 items-center justify-center rounded-full bg-pv-purple text-white shadow-[0_10px_24px_rgba(99,102,241,0.4)]"
               >
-                <Camera className="h-6 w-6" />
+                <Plus className="h-7 w-7" strokeWidth={2.5} />
               </button>
             );
           }

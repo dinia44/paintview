@@ -1,7 +1,7 @@
 import { DEMO_ROOM_PHOTO, formatGbp } from "@/data/mock";
 import { PrimaryButton, ScreenHeader, SecondaryButton, ToastStack } from "@/components/ui";
 import { useAppStore } from "@/store/appStore";
-import { Share2 } from "lucide-react";
+import { Send, Share2 } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 
 export function QuoteScreen() {
@@ -45,7 +45,7 @@ export function QuoteScreen() {
         }
       />
 
-      <div className="mx-4 rounded-[26px] border border-pv-border bg-pv-surface p-5 shadow-pv">
+      <div className="mx-4 rounded-2xl border border-pv-border bg-pv-surface p-5 shadow-pv">
         <p className="text-sm font-semibold text-pv-purple">{project.roomType}</p>
         <p className="mt-1 text-sm text-pv-muted">
           {date} · Quote #{project.quoteRef}
@@ -76,7 +76,7 @@ export function QuoteScreen() {
       </div>
 
       {colour && (
-        <div className="mx-4 mt-4 flex items-center gap-3 rounded-[20px] border border-pv-border bg-pv-sage-soft p-4">
+        <div className="mx-4 mt-4 flex items-center gap-3 rounded-2xl border border-pv-border bg-pv-sage-soft p-4">
           <span
             className="h-12 w-12 rounded-full border border-pv-border"
             style={{ backgroundColor: colour.hex }}
@@ -90,7 +90,7 @@ export function QuoteScreen() {
         </div>
       )}
 
-      <div className="mx-4 mt-4 rounded-[22px] border border-dashed border-pv-border bg-pv-surface-soft p-4">
+      <div className="mx-4 mt-4 rounded-2xl border border-dashed border-pv-border bg-pv-surface-soft p-4">
         <p className="font-bold">Client Preview</p>
         <p className="mt-1 text-sm text-pv-muted">
           This is how your quote will appear to your client.
@@ -98,19 +98,24 @@ export function QuoteScreen() {
         <button
           type="button"
           onClick={() => navigate(`/client-preview/${project.id}`)}
-          className="mt-3 w-full rounded-2xl border border-pv-border bg-pv-surface p-3 text-left text-sm font-semibold text-pv-purple shadow-sm"
+          className="mt-3 w-full rounded-2xl border border-pv-border bg-pv-surface p-4 text-left shadow-sm"
         >
-          View client preview →
+          <p className="text-xs font-semibold uppercase tracking-wide text-pv-purple">PaintView Quote</p>
+          <p className="mt-1 font-bold">{project.name}</p>
+          <p className="text-lg font-extrabold text-pv-charcoal">{formatGbp(q.total)}</p>
+          <p className="mt-1 text-sm text-pv-purple">View client preview →</p>
         </button>
       </div>
 
       <div className="mx-4 mt-6 space-y-3">
         <PrimaryButton
+          className="flex items-center justify-center gap-2"
           onClick={() => {
             sendQuote();
             addToast("Quote ready to send.");
           }}
         >
+          <Send className="h-5 w-5" />
           Send Quote
         </PrimaryButton>
         <SecondaryButton onClick={() => window.print()}>Download PDF</SecondaryButton>

@@ -1,9 +1,9 @@
 import { ActionCard, ProjectListItem } from "@/components/cards";
 import { BottomNav } from "@/components/BottomNav";
 import { ToastStack } from "@/components/ui";
-import { formatGbp, formatRelativeDate, statusLabel } from "@/data/mock";
+import { DEMO_ROOM_PHOTO, formatGbp, formatRelativeDate, statusLabel } from "@/data/mock";
 import { useAppStore } from "@/store/appStore";
-import { Bell, Menu } from "lucide-react";
+import { Bell, Camera, FileText, FolderOpen, Menu } from "lucide-react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
@@ -34,7 +34,7 @@ export function HomeScreen() {
         className="px-4 pt-2"
       >
         <h1 className="text-2xl font-extrabold tracking-tight">
-          {greeting}, {userName}
+          {greeting}, {userName} 👋
         </h1>
         <p className="mt-1 text-pv-muted">Let&apos;s make today productive.</p>
       </motion.div>
@@ -44,14 +44,14 @@ export function HomeScreen() {
           title="Scan a Room"
           subtitle="Measure walls in seconds"
           tone="lavender"
-          icon="📐"
+          icon={Camera}
           onClick={() => navigate("/scan")}
         />
         <ActionCard
           title="Create Quote"
           subtitle="Build a professional estimate"
           tone="sage"
-          icon="📋"
+          icon={FileText}
           onClick={() => {
             setActiveProject(projects[0]?.id ?? null);
             navigate(`/quote/${projects[0]?.id ?? "p1"}`);
@@ -61,7 +61,7 @@ export function HomeScreen() {
           title="Projects"
           subtitle="Manage your rooms and quotes"
           tone="beige"
-          icon="🏠"
+          icon={FolderOpen}
           onClick={() => navigate("/projects")}
         />
       </div>
@@ -78,6 +78,7 @@ export function HomeScreen() {
               status={statusLabel(p.status)}
               amount={formatGbp(p.quote?.total ?? 0)}
               date={formatRelativeDate(p.updatedAt)}
+              thumbnail={p.roomPhotoUrl ?? DEMO_ROOM_PHOTO}
               onClick={() => {
                 setActiveProject(p.id);
                 navigate(`/room/${p.id}`);
