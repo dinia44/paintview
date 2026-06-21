@@ -23,7 +23,7 @@ export function ColourPreview({
 
   return (
     <div className="space-y-4">
-      <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border-light bg-slate-900">
+      <div className="relative aspect-[4/3] overflow-hidden rounded-card border border-border bg-surface-soft">
         <Image
           src={imageUrl}
           alt="Room colour preview"
@@ -53,15 +53,15 @@ export function ColourPreview({
       </div>
 
       {colour && (
-        <div className="flex items-center gap-3 rounded-xl bg-white p-4 shadow-sm">
+        <div className="flex items-center gap-3 rounded-card border border-border bg-surface p-4 shadow-card">
           <span
-            className="h-12 w-12 rounded-xl border border-border-light"
+            className="h-12 w-12 rounded-xl border border-border"
             style={{ backgroundColor: colour.hex }}
             aria-hidden
           />
           <div>
             <p className="font-semibold">{colour.name}</p>
-            <p className="text-sm text-slate-600">
+            <p className="text-sm text-text-muted">
               {colour.brand} · {colour.code} · {colour.finish || "Matt"}
             </p>
           </div>

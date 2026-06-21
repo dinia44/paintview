@@ -69,21 +69,21 @@ export function QuoteBuilder() {
         <h3 className="text-lg font-semibold">Project details</h3>
         <dl className="grid gap-2 text-sm sm:grid-cols-2">
           <div>
-            <dt className="text-slate-500">Client</dt>
-            <dd className="font-medium">{project.clientName}</dd>
+            <dt className="text-text-muted">Client</dt>
+            <dd className="font-medium text-text-main">{project.clientName}</dd>
           </div>
           <div>
-            <dt className="text-slate-500">Address</dt>
-            <dd className="font-medium">{project.address || "—"}</dd>
+            <dt className="text-text-muted">Address</dt>
+            <dd className="font-medium text-text-main">{project.address || "—"}</dd>
           </div>
           <div>
-            <dt className="text-slate-500">Rooms</dt>
+            <dt className="text-text-muted">Rooms</dt>
             <dd className="font-medium">
               {project.rooms.map((r) => r.name).join(", ") || "—"}
             </dd>
           </div>
           <div>
-            <dt className="text-slate-500">Colour</dt>
+            <dt className="text-text-muted">Colour</dt>
             <dd className="flex items-center gap-2 font-medium">
               {colour && (
                 <span
@@ -122,7 +122,7 @@ export function QuoteBuilder() {
             </div>
           ))}
         </div>
-        <p className="text-sm font-medium text-slate-700">
+        <p className="text-sm font-medium text-text-main">
           Materials subtotal: {formatCurrency(totals.materialsTotal)}
         </p>
       </Card>
@@ -178,7 +178,7 @@ export function QuoteBuilder() {
             />
           </div>
         </div>
-        <p className="text-sm font-medium text-slate-700">
+        <p className="text-sm font-medium text-text-main">
           Labour subtotal: {formatCurrency(totals.labourTotal)}
         </p>
       </Card>
@@ -261,9 +261,13 @@ export function QuoteBuilder() {
             <dt>VAT</dt>
             <dd>{formatCurrency(totals.vatAmount)}</dd>
           </div>
-          <div className="flex justify-between border-t border-border-light pt-2 text-xl font-bold">
-            <dt>Total {quoteSettings.vatEnabled ? "(inc. VAT)" : ""}</dt>
-            <dd className="text-purple">{formatCurrency(totals.total)}</dd>
+          <div className="flex justify-between border-t border-border pt-3">
+            <dt className="text-2xl font-extrabold text-text-main">
+              Total {quoteSettings.vatEnabled ? "(inc. VAT)" : ""}
+            </dt>
+            <dd className="text-2xl font-extrabold text-text-main">
+              {formatCurrency(totals.total)}
+            </dd>
           </div>
         </dl>
       </Card>

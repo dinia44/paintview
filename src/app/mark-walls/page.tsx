@@ -73,8 +73,8 @@ export default function MarkWallsPage() {
             }}
             className={`rounded-full px-4 py-2 text-sm font-medium transition ${
               room.id === currentRoomId
-                ? "bg-purple text-white"
-                : "bg-white text-slate-600 border border-border-light"
+                ? "bg-primary text-white shadow-[0_8px_18px_rgba(124,58,237,0.22)]"
+                : "border border-border bg-surface text-text-muted hover:bg-surface-soft"
             }`}
           >
             {room.name}

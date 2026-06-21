@@ -12,14 +12,14 @@ export function DisclaimerNote({
 }: DisclaimerNoteProps) {
   return (
     <div
-      className={`flex gap-3 rounded-xl border p-4 text-sm ${
+      className={`flex gap-3 rounded-card border p-4 text-sm leading-relaxed ${
         variant === "warning"
-          ? "border-warning/30 bg-warning/10 text-amber-900"
-          : "border-purple/20 bg-purple/5 text-slate-700"
+          ? "border-warning/30 bg-warning/10 text-text-main"
+          : "border-accent/40 bg-accent-soft/60 text-text-main"
       }`}
       role="note"
     >
-      <Info className="mt-0.5 h-4 w-4 shrink-0 text-purple" aria-hidden />
+      <Info className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden />
       <p>{children}</p>
     </div>
   );

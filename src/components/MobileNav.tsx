@@ -24,7 +24,7 @@ export function MobileNav() {
 
   return (
     <nav
-      className="fixed inset-x-0 bottom-0 z-30 border-t border-border-light bg-white/95 px-2 py-2 backdrop-blur-md lg:hidden"
+      className="mobile-nav fixed inset-x-0 bottom-0 z-30 border-t border-border bg-surface/90 px-2 py-2 backdrop-blur-[16px] lg:hidden"
       aria-label="Main navigation"
     >
       <ul className="mx-auto flex max-w-lg items-stretch justify-between">
@@ -35,10 +35,10 @@ export function MobileNav() {
               <Link
                 href={href}
                 className={cn(
-                  "flex flex-col items-center gap-1 rounded-xl px-2 py-2 text-xs font-medium transition",
+                  "flex flex-col items-center gap-1 rounded-button px-2 py-2 text-xs font-medium transition",
                   active
-                    ? "text-purple"
-                    : "text-slate-500 hover:text-purple"
+                    ? "bg-primary-soft text-primary"
+                    : "text-text-muted hover:text-primary"
                 )}
                 aria-current={active ? "page" : undefined}
               >

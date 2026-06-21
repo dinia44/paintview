@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     "Take room photos, mark walls, estimate paint, preview colours, and build professional quotes for painters and decorators.",
   appleWebApp: {
     capable: true,
-    statusBarStyle: "black-translucent",
+    statusBarStyle: "default",
     title: "PaintView",
   },
 };
@@ -23,7 +23,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
-  themeColor: "#090B12",
+  themeColor: "#FAF7F2",
 };
 
 export default function RootLayout({

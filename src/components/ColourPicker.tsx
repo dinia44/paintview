@@ -49,10 +49,10 @@ export function ColourPicker({ selected, onSelect }: ColourPickerProps) {
                 type="button"
                 onClick={() => onSelect(colour)}
                 className={cn(
-                  "relative overflow-hidden rounded-2xl border-2 p-4 text-left transition",
+                  "relative overflow-hidden rounded-card border-2 p-4 text-left transition",
                   isSelected
-                    ? "border-purple ring-2 ring-purple/30"
-                    : "border-border-light hover:border-purple/40"
+                    ? "border-primary ring-2 ring-primary/20"
+                    : "border-border hover:border-accent/50"
                 )}
                 aria-label={`Select ${colour.name}, code ${colour.code}`}
               >
@@ -60,11 +60,11 @@ export function ColourPicker({ selected, onSelect }: ColourPickerProps) {
                   className="mb-3 h-16 w-full rounded-xl"
                   style={{ backgroundColor: colour.hex }}
                 />
-                <p className="font-semibold text-text-dark">{colour.name}</p>
-                <p className="text-xs text-slate-500">{colour.code}</p>
+                <p className="font-semibold text-text-main">{colour.name}</p>
+                <p className="text-xs text-text-muted">{colour.code}</p>
                 {isSelected && (
                   <Check
-                    className="absolute right-3 top-3 h-5 w-5 text-purple"
+                    className="absolute right-3 top-3 h-5 w-5 text-primary"
                     aria-hidden
                   />
                 )}
@@ -76,7 +76,7 @@ export function ColourPicker({ selected, onSelect }: ColourPickerProps) {
 
       <Card className="space-y-4">
         <div className="flex items-center gap-2">
-          <Heart className="h-5 w-5 text-purple" />
+          <Heart className="h-5 w-5 text-accent" />
           <h3 className="font-semibold">Custom colour</h3>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
@@ -129,7 +129,7 @@ export function ColourPicker({ selected, onSelect }: ColourPickerProps) {
         <button
           type="button"
           onClick={applyCustom}
-          className="text-sm font-medium text-purple hover:underline"
+          className="text-sm font-semibold text-primary hover:text-primary-dark hover:underline"
         >
           Apply custom colour
         </button>

@@ -100,7 +100,7 @@ export function ImageCapture() {
         />
 
         {previewUrl ? (
-          <div className="relative overflow-hidden rounded-2xl border border-border-light">
+          <div className="relative overflow-hidden rounded-card border border-border">
             <Image
               src={previewUrl}
               alt="Room preview"
@@ -156,10 +156,10 @@ export function ImageCapture() {
             {project.rooms.map((room) => (
               <li
                 key={room.id}
-                className="flex items-center justify-between rounded-xl bg-panel-soft px-4 py-3 text-sm"
+                className="flex items-center justify-between rounded-card bg-surface-soft px-4 py-3 text-sm"
               >
-                <span>{room.name}</span>
-                <span className="text-muted-light">
+                <span className="text-text-main">{room.name}</span>
+                <span className="text-text-muted">
                   {room.walls.length} wall{room.walls.length !== 1 ? "s" : ""}
                 </span>
               </li>

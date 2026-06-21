@@ -138,7 +138,7 @@ export function ProjectForm() {
             value={form.notes}
             onChange={(e) => handleChange("notes", e.target.value)}
             placeholder="Access details, special requests..."
-            className="min-h-24 w-full rounded-xl border border-border-light bg-white px-4 py-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple/40"
+            className="min-h-24 w-full rounded-button border border-border bg-surface px-4 py-3 text-base text-text-main focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/35"
           />
         </div>
       </Card>

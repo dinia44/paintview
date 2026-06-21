@@ -36,13 +36,13 @@ export function PaintCalculator() {
         <MetricCard
           label="Total wall area"
           value={formatArea(totalWallArea)}
-          icon={<PaintBucket className="h-5 w-5 text-purple" />}
+          icon={<PaintBucket className="h-5 w-5 text-accent" />}
         />
         <MetricCard
           label="Paint required"
           value={formatLitres(paintLitresWithWaste)}
           hint={`${quoteSettings.coats} coats incl. ${quoteSettings.wastePercent}% waste`}
-          icon={<Droplets className="h-5 w-5 text-purple" />}
+          icon={<Droplets className="h-5 w-5 text-accent" />}
         />
         <MetricCard
           label="Suggested tins"
@@ -103,7 +103,7 @@ export function PaintCalculator() {
                 onChange={(e) =>
                   updateQuoteSettings({ primerRequired: e.target.checked })
                 }
-                className="h-4 w-4 rounded border-border-light text-purple"
+                className="h-4 w-4 rounded border-border text-primary"
               />
               Primer required
             </label>

@@ -3,12 +3,16 @@ import { HTMLAttributes } from "react";
 
 export function Card({
   className,
+  soft,
   ...props
-}: HTMLAttributes<HTMLDivElement>) {
+}: HTMLAttributes<HTMLDivElement> & { soft?: boolean }) {
   return (
     <div
       className={cn(
-        "rounded-2xl border border-border-light bg-white p-5 shadow-sm",
+        "rounded-card border border-border p-5",
+        soft
+          ? "bg-surface-soft shadow-none"
+          : "bg-surface shadow-card",
         className
       )}
       {...props}
@@ -22,7 +26,7 @@ export function CardTitle({
 }: HTMLAttributes<HTMLHeadingElement>) {
   return (
     <h3
-      className={cn("text-lg font-semibold text-text-dark", className)}
+      className={cn("text-lg font-semibold text-text-main", className)}
       {...props}
     />
   );

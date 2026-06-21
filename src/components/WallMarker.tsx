@@ -160,7 +160,7 @@ export function WallMarker({
       <Card className="overflow-hidden p-0">
         <div
           ref={containerRef}
-          className="relative aspect-[4/3] w-full touch-none select-none bg-slate-900"
+          className="relative aspect-[4/3] w-full touch-none select-none bg-surface-soft"
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
           onPointerLeave={handlePointerUp}
@@ -181,9 +181,9 @@ export function WallMarker({
           >
             <polygon
               points={polygonPoints}
-              fill="rgba(124, 58, 237, 0.25)"
-              stroke="#7C3AED"
-              strokeWidth="0.5"
+              fill="rgba(163, 163, 128, 0.28)"
+              stroke="#A3A380"
+              strokeWidth="0.55"
             />
             {polygon.map((point, index) => (
               <circle
@@ -191,9 +191,10 @@ export function WallMarker({
                 cx={point.x}
                 cy={point.y}
                 r="2"
-                fill="#fff"
+                fill="#FFFFFF"
                 stroke="#7C3AED"
-                strokeWidth="0.4"
+                strokeWidth="0.45"
+                style={{ filter: "drop-shadow(0 0 2px rgba(124,58,237,0.12))" }}
                 className="cursor-grab active:cursor-grabbing"
                 onPointerDown={handlePointerDown(index)}
                 onClick={(e) => e.stopPropagation()}
@@ -201,8 +202,8 @@ export function WallMarker({
             ))}
           </svg>
         </div>
-        <div className="flex items-center justify-between border-t border-border-light px-4 py-3">
-          <p className="text-sm text-slate-600">
+        <div className="flex items-center justify-between border-t border-border px-4 py-3 bg-surface">
+          <p className="text-sm text-text-muted">
             {polygon.length} points — tap image to add, drag to adjust
           </p>
           <Button variant="ghost" size="sm" onClick={resetPolygon}>
@@ -270,7 +271,7 @@ export function WallMarker({
         </div>
 
         {previewArea && (
-          <div className="rounded-xl bg-panel-soft px-4 py-3 text-sm">
+          <div className="rounded-card bg-surface-soft px-4 py-3 text-sm">
             <p>
               Gross area: <strong>{previewArea.grossAreaM2.toFixed(2)} m²</strong>
             </p>

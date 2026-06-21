@@ -79,12 +79,14 @@ export default function ColourPage() {
           <ColourPicker selected={selected} onSelect={handleSelect} />
         </div>
         <div className="space-y-4">
-          <div className="flex items-center gap-3 rounded-xl bg-white p-3 shadow-sm">
+          <div className="preview-toolbar flex items-center gap-2 rounded-[22px] border border-border bg-surface/90 p-2 shadow-soft backdrop-blur-[16px]">
             <button
               type="button"
               onClick={() => setShowColourPreview(false)}
-              className={`flex-1 rounded-lg py-2 text-sm font-medium ${
-                !showColourPreview ? "bg-purple text-white" : "text-slate-600"
+              className={`flex-1 rounded-button py-2.5 text-sm font-medium transition ${
+                !showColourPreview
+                  ? "bg-primary-soft text-primary"
+                  : "text-text-muted hover:bg-surface-soft"
               }`}
             >
               Original
@@ -92,8 +94,10 @@ export default function ColourPage() {
             <button
               type="button"
               onClick={() => setShowColourPreview(true)}
-              className={`flex-1 rounded-lg py-2 text-sm font-medium ${
-                showColourPreview ? "bg-purple text-white" : "text-slate-600"
+              className={`flex-1 rounded-button py-2.5 text-sm font-medium transition ${
+                showColourPreview
+                  ? "bg-primary-soft text-primary"
+                  : "text-text-muted hover:bg-surface-soft"
               }`}
             >
               Painted
@@ -114,7 +118,7 @@ export default function ColourPage() {
               onChange={(e) =>
                 setColourPreviewOpacity(parseFloat(e.target.value))
               }
-              className="mt-2 w-full accent-purple"
+              className="mt-2 w-full accent-primary"
             />
           </div>
 
