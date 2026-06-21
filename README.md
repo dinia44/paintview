@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PaintView Pro
 
-## Getting Started
+**PaintView Pro** is a mobile-first web app for painters and decorators. It helps you prepare faster, better-looking decorating quotes from room photos.
 
-First, run the development server:
+## What it does
+
+- Create decorating projects with client and decorator details
+- Take or upload room photos from a phone
+- Mark wall areas visually on the photo
+- Enter **real** wall measurements for calculations
+- Choose paint colours and preview them on the marked wall
+- Calculate paint quantity and tin suggestions
+- Build professional quotes with labour, materials, VAT and contingency
+- Copy, share, print and save projects locally in the browser
+
+## Important: no fake measurement
+
+> This MVP uses **manually entered measurements** for actual quote calculations. Photo marking is for visual preview and communication, not guaranteed measurement.
+
+The app does **not** claim to measure rooms accurately from a single photo. That workflow is unreliable and risky for real quotes.
+
+Future slots are reserved for:
+
+- iPhone LiDAR / ARKit RoomPlan
+- Android ARCore depth
+- OpenAI Vision wall-outline suggestions
+- Professional laser-measure import
+
+## Run locally
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open **http://localhost:5173**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+You can also open `index.html` directly, but a local server is recommended for PWA and camera features.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Test on your phone
 
-## Learn More
+1. Run `npm run dev` on your Mac
+2. Find your Mac IP: `ipconfig getifaddr en0`
+3. On your phone (same Wi‑Fi): `http://YOUR_IP:5173`
 
-To learn more about Next.js, take a look at the following resources:
+Or deploy to Vercel and open the production URL.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deploy
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Vercel
 
-## Deploy on Vercel
+1. Push to GitHub
+2. Import at [vercel.com/new](https://vercel.com/new)
+3. No build command needed — static site
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Netlify / GitHub Pages / Hostinger
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Upload these files to your static host:
+
+- `index.html`
+- `styles.css`
+- `app.js`
+- `manifest.json`
+- `service-worker.js`
+- `assets/`
+- `vercel.json` (Vercel only)
+
+## API slots
+
+The **API slots** section stores optional keys locally for future features:
+
+- Cloud project sync (Supabase)
+- AI wall suggestions (OpenAI Vision)
+- Payments (Stripe)
+- Paint brand colour matching
+
+**No API keys are required** for the MVP. The app works offline for quote preparation.
+
+## Recommended next stage
+
+1. Shareable quote links with Supabase
+2. Branded PDF export
+3. AI-assisted wall outline suggestions (with confidence warnings)
+4. Stripe subscriptions for decorator teams
+
+## Tech
+
+- Static HTML, CSS and JavaScript
+- localStorage persistence
+- PWA manifest and service worker
+- Web Share API for mobile quote sharing

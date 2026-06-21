@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f7f2ea" />
+    <meta name="description" content="PaintView Pro — room photos, colour previews and decorator quotes in one workflow." />
+    <title>PaintView Pro</title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" href="/assets/icon-192.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/assets/icon-192.svg" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="app" id="app">
+      <header class="hero" role="banner">
+        <div class="hero__top">
+          <div class="brand">
+            <div class="brand__mark" aria-hidden="true">PV</div>
+            <div>
+              <p class="brand__name">PaintView Pro</p>
+              <p class="brand__tagline">Room photos, colour previews and decorator quotes in one workflow.</p>
+            </div>
+          </div>
+          <div class="hero__pills" aria-label="Product highlights">
+            <span class="pill">Phone-ready</span>
+            <span class="pill">Local save</span>
+            <span class="pill">Quote builder</span>
+          </div>
+        </div>
+        <div class="hero__actions">
+          <button type="button" class="btn btn--primary" id="btnStartQuote">Start quote</button>
+          <button type="button" class="btn btn--secondary" id="btnLoadProject">Load saved project</button>
+        </div>
+      </header>
+
+      <nav class="steps" aria-label="Workflow steps" id="stepNav">
+        <button type="button" class="step is-active" data-step="project">Project</button>
+        <button type="button" class="step" data-step="photo">Photo</button>
+        <button type="button" class="step" data-step="walls">Walls</button>
+        <button type="button" class="step" data-step="colour">Colour</button>
+        <button type="button" class="step" data-step="quote">Quote</button>
+        <button type="button" class="step" data-step="api">API slots</button>
+      </nav>
+
+      <main id="main" class="main">
+        <!-- PROJECT -->
+        <section class="panel is-visible" id="section-project" data-section="project" aria-labelledby="project-heading">
+          <div class="panel__head">
+            <h2 id="project-heading">Project details</h2>
+            <p class="panel__lead">Set up the client, decorator and quote reference before capturing the room.</p>
+          </div>
+          <form id="projectForm" class="form-grid">
+            <label>Project name<input name="projectName" type="text" required /></label>
+            <label>Client name<input name="clientName" type="text" required /></label>
+            <label>Client email<input name="clientEmail" type="email" autocomplete="email" /></label>
+            <label>Client phone<input name="clientPhone" type="tel" autocomplete="tel" /></label>
+            <label class="span-2">Project address<input name="address" type="text" /></label>
+            <label>Decorator / company<input name="decoratorName" type="text" /></label>
+            <label>Decorator email<input name="decoratorEmail" type="email" /></label>
+            <label>Decorator phone<input name="decoratorPhone" type="tel" /></label>
+            <label>Quote reference<input name="quoteRef" type="text" /></label>
+            <label>Quote date<input name="quoteDate" type="date" /></label>
+            <label class="span-2">Notes<textarea name="notes" rows="3"></textarea></label>
+          </form>
+          <div class="panel__actions">
+            <button type="button" class="btn btn--soft" id="btnSaveProject">Save project</button>
+            <button type="button" class="btn btn--primary" data-goto="photo">Continue to photo</button>
+          </div>
+        </section>
+
+        <!-- PHOTO -->
+        <section class="panel" id="section-photo" data-section="photo" aria-labelledby="photo-heading">
+          <div class="panel__head">
+            <h2 id="photo-heading">Room photo &amp; wall marking</h2>
+            <p class="panel__lead">Take a straight-on photo for visual context. Mark the wall area, then confirm real measurements in the Walls step.</p>
+          </div>
+          <div class="notice">
+            Photo marking is for preview and communication only — quote calculations use manually entered dimensions.
+          </div>
+          <label class="file-btn">
+            <input type="file" id="photoInput" accept="image/*" capture="environment" hidden />
+            <span>Take or upload room photo</span>
+          </label>
+          <div class="canvas-wrap" id="canvasWrap" hidden>
+            <canvas id="photoCanvas" aria-label="Room photo with wall marking overlay"></canvas>
+            <p class="canvas-hint" id="canvasHint">Tap to place corner points. Drag handles to adjust.</p>
+          </div>
+          <div class="panel__actions panel__actions--wrap">
+            <button type="button" class="btn btn--secondary" id="btnResetPoints">Reset points</button>
+            <button type="button" class="btn btn--secondary" id="btnFullWall">Use full image as wall</button>
+            <button type="button" class="btn btn--confirm" id="btnSaveWallFromPhoto">Save wall outline</button>
+          </div>
+        </section>
+
+        <!-- WALLS -->
+        <section class="panel" id="section-walls" data-section="walls" aria-labelledby="walls-heading">
+          <div class="panel__head">
+            <h2 id="walls-heading">Walls &amp; measurements</h2>
+            <p class="panel__lead">Enter confirmed width and height for each marked wall. Calculations use these values, not the photo.</p>
+          </div>
+          <div id="wallsList" class="walls-list"></div>
+          <button type="button" class="btn btn--secondary" id="btnAddWall">+ Add another wall</button>
+          <div class="metrics" id="wallsMetrics"></div>
+          <div class="panel__actions">
+            <button type="button" class="btn btn--primary" data-goto="colour">Continue to colour</button>
+          </div>
+        </section>
+
+        <!-- COLOUR -->
+        <section class="panel" id="section-colour" data-section="colour" aria-labelledby="colour-heading">
+          <div class="panel__head">
+            <h2 id="colour-heading">Paint colour</h2>
+            <p class="panel__lead">Choose a curated swatch or enter a brand code. Preview updates on the marked wall area.</p>
+          </div>
+          <div class="swatches" id="swatchGrid" role="list"></div>
+          <form id="colourForm" class="form-grid">
+            <label>Colour name<input name="colourName" type="text" /></label>
+            <label>Hex<input name="colourHex" type="text" placeholder="#a8b89d" /></label>
+            <label>Brand<input name="colourBrand" type="text" /></label>
+            <label>Paint code<input name="colourCode" type="text" /></label>
+          </form>
+          <div class="colour-summary" id="colourSummary"></div>
+          <div class="notice notice--soft">Preview colours are approximate and depend on lighting, screen brightness and paint finish.</div>
+          <div class="panel__actions">
+            <button type="button" class="btn btn--primary" id="btnUseColour">Use this colour</button>
+            <button type="button" class="btn btn--secondary" data-goto="quote">Continue to quote</button>
+          </div>
+        </section>
+
+        <!-- QUOTE -->
+        <section class="panel" id="section-quote" data-section="quote" aria-labelledby="quote-heading">
+          <div class="panel__head">
+            <h2 id="quote-heading">Quote builder</h2>
+            <p class="panel__lead">Build a professional estimate with labour, materials, contingency and VAT.</p>
+          </div>
+          <form id="quoteForm" class="form-grid">
+            <label>Labour day rate (£)<input name="dayRate" type="number" min="0" step="1" /></label>
+            <label>Number of decorators<input name="decorators" type="number" min="1" step="1" /></label>
+            <label>Estimated days<input name="estimatedDays" type="number" min="0" step="0.5" /></label>
+            <label>Paint cost per litre (£)<input name="paintCostPerLitre" type="number" min="0" step="0.01" /></label>
+            <label>Prep / materials (£)<input name="prepCost" type="number" min="0" step="0.01" /></label>
+            <label>Parking / travel (£)<input name="travelCost" type="number" min="0" step="0.01" /></label>
+            <label>Contingency %<input name="contingencyPercent" type="number" min="0" step="1" /></label>
+            <label class="checkbox-label span-2">
+              <input name="vatEnabled" type="checkbox" /> VAT enabled (20%)
+            </label>
+          </form>
+          <div class="quote-sheet" id="quoteSheet" aria-live="polite"></div>
+          <div class="panel__actions panel__actions--wrap">
+            <button type="button" class="btn btn--primary" id="btnCopyQuote">Copy quote</button>
+            <button type="button" class="btn btn--secondary" id="btnShareQuote">Share quote</button>
+            <button type="button" class="btn btn--secondary" id="btnPrintQuote">Print / save PDF</button>
+            <button type="button" class="btn btn--soft" id="btnSaveQuote">Save project</button>
+            <button type="button" class="btn btn--danger" id="btnClearProject">Clear project</button>
+          </div>
+        </section>
+
+        <!-- API -->
+        <section class="panel" id="section-api" data-section="api" aria-labelledby="api-heading">
+          <div class="panel__head">
+            <h2 id="api-heading">API slots (future)</h2>
+            <p class="panel__lead">The app works offline for quote preparation. API keys are for future cloud saving, AI wall suggestions, payment plans and colour matching.</p>
+          </div>
+          <form id="apiForm" class="form-grid">
+            <label>OpenAI Vision API key<input name="openaiKey" type="password" autocomplete="off" placeholder="Optional" /></label>
+            <label>Supabase URL<input name="supabaseUrl" type="url" placeholder="https://..." /></label>
+            <label>Supabase anon key<input name="supabaseAnon" type="password" autocomplete="off" /></label>
+            <label>Stripe publishable key<input name="stripeKey" type="text" autocomplete="off" /></label>
+            <label>Paint / colour API key<input name="paintApiKey" type="password" autocomplete="off" /></label>
+            <label class="span-2">Future AR / LiDAR provider<input name="arProvider" type="text" placeholder="ARKit RoomPlan, ARCore…" /></label>
+          </form>
+          <div class="notice">No API keys are required for the MVP. Values are stored locally only.</div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p>Measurements are estimates until confirmed by the decorator on site.</p>
+      </footer>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <script src="/app.js" defer></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/service-worker.js").catch(() => {});
+        });
+      }
+    </script>
+  </body>
+</html>
