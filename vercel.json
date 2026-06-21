@@ -9,13 +9,6 @@
     {
       "source": "/service-worker.js",
       "headers": [{ "key": "Cache-Control", "value": "no-cache" }]
-    },
-    {
-      "source": "/(.*)",
-      "headers": [{ "key": "X-Content-Type-Options", "value": "nosniff" }]
     }
-  ],
-  "rewrites": [
-    { "source": "/((?!assets/|app\\.js|styles\\.css|manifest\\.json|service-worker\\.js).*)", "destination": "/index.html" }
   ]
 }
