@@ -1,11 +1,11 @@
 {
-  "name": "PaintView Pro",
+  "name": "PaintView",
   "short_name": "PaintView",
-  "description": "Room photos, colour previews and decorator quotes in one workflow.",
+  "description": "Measure rooms. Preview colours. Create beautiful quotes.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f7f2ea",
-  "theme_color": "#f7f2ea",
+  "background_color": "#F7F3EC",
+  "theme_color": "#F7F3EC",
   "orientation": "portrait-primary",
   "icons": [
     {

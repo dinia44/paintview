@@ -1,90 +1,41 @@
-# PaintView Pro
+# PaintView — Mobile App
 
-**PaintView Pro** is a mobile-first web app for painters and decorators. It helps you prepare faster, better-looking decorating quotes from room photos.
+**Measure rooms. Preview colours. Create beautiful quotes.**
 
-## What it does
-
-- Create decorating projects with client and decorator details
-- Take or upload room photos from a phone
-- Mark wall areas visually on the photo
-- Enter **real** wall measurements for calculations
-- Choose paint colours and preview them on the marked wall
-- Calculate paint quantity and tin suggestions
-- Build professional quotes with labour, materials, VAT and contingency
-- Copy, share, print and save projects locally in the browser
-
-## Important: no fake measurement
-
-> This MVP uses **manually entered measurements** for actual quote calculations. Photo marking is for visual preview and communication, not guaranteed measurement.
-
-The app does **not** claim to measure rooms accurately from a single photo. That workflow is unreliable and risky for real quotes.
-
-Future slots are reserved for:
-
-- iPhone LiDAR / ARKit RoomPlan
-- Android ARCore depth
-- OpenAI Vision wall-outline suggestions
-- Professional laser-measure import
+A premium mobile-first PWA for painters and decorators.
 
 ## Run locally
 
 ```bash
+npm install
 npm run dev
 ```
 
-Open **http://localhost:5173**
+Open http://localhost:5173 on your phone or use DevTools mobile view (390px).
 
-You can also open `index.html` directly, but a local server is recommended for PWA and camera features.
+## Deploy (Vercel)
 
-## Test on your phone
+Push to GitHub — Vercel auto-builds with Vite (`dist` output).
 
-1. Run `npm run dev` on your Mac
-2. Find your Mac IP: `ipconfig getifaddr en0`
-3. On your phone (same Wi‑Fi): `http://YOUR_IP:5173`
+## User flow
 
-Or deploy to Vercel and open the production URL.
+1. **Home** — Scan, quote, projects
+2. **Scan Room** — Mark wall corners, confirm measurement
+3. **3D Room View** — Isometric room summary
+4. **Colour Preview** — Swatches and finish selector
+5. **Quote Summary** — Send quote / PDF
+6. **Client Preview** — What the client sees
 
-## Deploy
+## Important
 
-### Vercel
+> Photo marking is for visual preview. Quote calculations use confirmed measurements — not fake AI scanning.
 
-1. Push to GitHub
-2. Import at [vercel.com/new](https://vercel.com/new)
-3. No build command needed — static site
-
-### Netlify / GitHub Pages / Hostinger
-
-Upload these files to your static host:
-
-- `index.html`
-- `styles.css`
-- `app.js`
-- `manifest.json`
-- `service-worker.js`
-- `assets/`
-- `vercel.json` (Vercel only)
-
-## API slots
-
-The **API slots** section stores optional keys locally for future features:
-
-- Cloud project sync (Supabase)
-- AI wall suggestions (OpenAI Vision)
-- Payments (Stripe)
-- Paint brand colour matching
-
-**No API keys are required** for the MVP. The app works offline for quote preparation.
-
-## Recommended next stage
-
-1. Shareable quote links with Supabase
-2. Branded PDF export
-3. AI-assisted wall outline suggestions (with confidence warnings)
-4. Stripe subscriptions for decorator teams
+API integrations are hidden in Profile → Settings (coming soon).
 
 ## Tech
 
-- Static HTML, CSS and JavaScript
-- localStorage persistence
-- PWA manifest and service worker
-- Web Share API for mobile quote sharing
+- React + TypeScript + Vite
+- Tailwind CSS v4
+- Framer Motion
+- Zustand + localStorage
+- PWA manifest + service worker
