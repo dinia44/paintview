@@ -4,8 +4,8 @@
   "description": "Measure rooms. Preview colours. Create beautiful quotes.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#F7F3EC",
-  "theme_color": "#F7F3EC",
+  "background_color": "#F8F9FB",
+  "theme_color": "#6366F1",
   "orientation": "portrait-primary",
   "icons": [
     {

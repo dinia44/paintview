@@ -7,6 +7,7 @@ import {
   calcPaintLitres,
   calcWallArea,
 } from "@/data/mock";
+import { calcDimensionsFromReference } from "@/lib/measurement";
 import type { PaintColour, PaintViewProject, ToastMessage } from "@/types";
 
 type AppState = {
@@ -15,6 +16,9 @@ type AppState = {
   activeProjectId: string | null;
   scanPoints: { x: number; y: number }[];
   scanWall: { widthM: number; heightM: number };
+  scanPhotoUrl: string;
+  referenceSide: "width" | "height";
+  referenceMeters: number;
   previewMode: "original" | "preview";
   toasts: ToastMessage[];
   showSettings: boolean;
@@ -25,6 +29,9 @@ type AppState = {
   confirmScanWall: () => void;
   setScanPoints: (points: { x: number; y: number }[]) => void;
   setScanWallDims: (widthM: number, heightM: number) => void;
+  setScanPhotoUrl: (url: string) => void;
+  setReference: (side: "width" | "height", meters: number) => void;
+  recalcScanWall: () => void;
   selectColour: (colour: PaintColour, finish?: PaintColour["finish"]) => void;
   sendQuote: () => void;
   addToast: (text: string) => void;
@@ -35,19 +42,33 @@ type AppState = {
 
 let toastId = 0;
 
+const DEFAULT_POINTS = [
+  { x: 0.08, y: 0.12 },
+  { x: 0.92, y: 0.12 },
+  { x: 0.92, y: 0.78 },
+  { x: 0.08, y: 0.78 },
+];
+
+function dimsFromState(
+  points: { x: number; y: number }[],
+  referenceSide: "width" | "height",
+  referenceMeters: number
+) {
+  if (points.length < 4) return { widthM: referenceMeters, heightM: referenceMeters };
+  return calcDimensionsFromReference(points, referenceSide, referenceMeters);
+}
+
 export const useAppStore = create<AppState>()(
   persist(
     (set, get) => ({
       userName: "James",
       projects: MOCK_PROJECTS,
       activeProjectId: "p1",
-      scanPoints: [
-        { x: 0.12, y: 0.18 },
-        { x: 0.88, y: 0.18 },
-        { x: 0.88, y: 0.82 },
-        { x: 0.12, y: 0.82 },
-      ],
+      scanPoints: DEFAULT_POINTS,
       scanWall: { widthM: 3.42, heightM: 2.6 },
+      scanPhotoUrl: DEMO_ROOM_PHOTO,
+      referenceSide: "height",
+      referenceMeters: 2.6,
       previewMode: "preview",
       toasts: [],
       showSettings: false,
@@ -59,9 +80,17 @@ export const useAppStore = create<AppState>()(
         return projects.find((p) => p.id === activeProjectId);
       },
 
+      recalcScanWall: () => {
+        const { scanPoints, referenceSide, referenceMeters } = get();
+        const dims = dimsFromState(scanPoints, referenceSide, referenceMeters);
+        set({ scanWall: dims });
+      },
+
       createFromScan: () => {
-        const { scanWall, scanPoints } = get();
-        const area = calcWallArea(scanWall);
+        const { scanPoints, scanPhotoUrl } = get();
+        get().recalcScanWall();
+        const wall = get().scanWall;
+        const area = calcWallArea(wall);
         const id = "p-" + Date.now();
         const project: PaintViewProject = {
           id,
@@ -69,13 +98,13 @@ export const useAppStore = create<AppState>()(
           roomType: "Room",
           status: "in_progress",
           updatedAt: new Date().toISOString(),
-          roomPhotoUrl: DEMO_ROOM_PHOTO,
+          roomPhotoUrl: scanPhotoUrl,
           walls: [
             {
               id: "w-" + Date.now(),
               label: "Wall 1",
-              widthM: scanWall.widthM,
-              heightM: scanWall.heightM,
+              widthM: wall.widthM,
+              heightM: wall.heightM,
               areaM2: area,
               points: [...scanPoints],
             },
@@ -104,11 +133,23 @@ export const useAppStore = create<AppState>()(
       },
 
       confirmScanWall: () => {
+        get().recalcScanWall();
         get().addToast("Wall measurement saved.");
       },
 
-      setScanPoints: (points) => set({ scanPoints: points }),
+      setScanPoints: (points) => {
+        set({ scanPoints: points });
+        get().recalcScanWall();
+      },
+
       setScanWallDims: (widthM, heightM) => set({ scanWall: { widthM, heightM } }),
+
+      setScanPhotoUrl: (url) => set({ scanPhotoUrl: url }),
+
+      setReference: (side, meters) => {
+        set({ referenceSide: side, referenceMeters: meters });
+        get().recalcScanWall();
+      },
 
       selectColour: (colour, finish) => {
         const { activeProjectId, projects } = get();

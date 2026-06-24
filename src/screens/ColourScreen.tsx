@@ -1,4 +1,5 @@
 import { COLOURS, DEMO_ROOM_PHOTO } from "@/data/mock";
+import { WallColorOverlay } from "@/components/WallColorOverlay";
 import { cn } from "@/lib/cn";
 import { useAppStore } from "@/store/appStore";
 import type { PaintColour } from "@/types";
@@ -20,7 +21,7 @@ export function ColourScreen() {
   const [finish, setFinish] = useState<PaintColour["finish"]>(selected.finish);
 
   const photo = project?.roomPhotoUrl ?? DEMO_ROOM_PHOTO;
-  const overlay = previewMode === "preview" ? selected.hex : "transparent";
+  const wallPoints = project?.walls[0]?.points;
 
   return (
     <div className="mx-auto min-h-[100dvh] max-w-md bg-pv-bg pb-8">
@@ -50,14 +51,13 @@ export function ColourScreen() {
         ))}
       </div>
 
-      <div className="relative mx-4 mt-4 overflow-hidden rounded-2xl border border-pv-border shadow-pv">
-        <img src={photo} alt="Room preview" className="aspect-[4/3] w-full object-cover" />
-        {previewMode === "preview" && (
-          <div
-            className="absolute inset-0 mix-blend-multiply opacity-55"
-            style={{ backgroundColor: overlay }}
-          />
-        )}
+      <div className="mx-4 mt-4 overflow-hidden rounded-2xl border border-pv-border shadow-pv">
+        <WallColorOverlay
+          photoUrl={photo}
+          colourHex={selected.hex}
+          wallPoints={wallPoints}
+          mode={previewMode}
+        />
       </div>
 
       <div className="mt-5 flex gap-3 overflow-x-auto px-4 pb-2">
@@ -117,7 +117,7 @@ export function ColourScreen() {
       </div>
 
       <p className="mx-4 mt-4 text-xs text-pv-muted">
-        Colour preview is approximate. Always confirm with a physical sample.
+        Preview applies your colour to the measured wall area only. Lighting and texture may differ from the finished result — always check a physical sample.
       </p>
 
       <div className="mx-4 mt-6">

@@ -17,7 +17,9 @@ export const MOCK_PROJECTS: PaintViewProject[] = [
     status: "quote_sent",
     updatedAt: new Date().toISOString(),
     walls: [
-      { id: "w1", label: "Wall 1", widthM: 3.42, heightM: 2.6, areaM2: 8.89 },
+      { id: "w1", label: "Wall 1", widthM: 3.42, heightM: 2.6, areaM2: 8.89, points: [
+        { x: 0.08, y: 0.12 }, { x: 0.92, y: 0.12 }, { x: 0.92, y: 0.78 }, { x: 0.08, y: 0.78 },
+      ]},
       { id: "w2", label: "Wall 2", widthM: 4.1, heightM: 2.6, areaM2: 10.66 },
     ],
     totalWallAreaM2: 38.32,
@@ -68,6 +70,9 @@ export const DEMO_ROOM_PHOTO =
     <rect fill="#fff" x="520" y="180" width="120" height="140" rx="2" opacity="0.9"/>
     <rect fill="#8b7355" x="680" y="280" width="40" height="120"/>
   </svg>`);
+
+// Attach demo photo after constant is defined
+MOCK_PROJECTS[0].roomPhotoUrl = DEMO_ROOM_PHOTO;
 
 export function formatGbp(n: number) {
   return new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP" }).format(n);
