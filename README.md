@@ -13,24 +13,42 @@ npm run dev
 
 Open http://localhost:5173 on your phone or use DevTools mobile view (390px).
 
-## Deploy (Vercel)
+## Live URLs
 
-Push to GitHub — Vercel auto-builds with Vite (`dist` output).
+| Host | URL |
+|------|-----|
+| **GitHub Pages** (backup) | https://dinia44.github.io/paintview/ |
+| **Vercel** | Import at [vercel.com/new](https://vercel.com/new) → `dinia44/paintview` |
+
+### Vercel settings (important)
+
+If the link shows a blank page, the project is usually misconfigured:
+
+| Setting | Value |
+|---------|-------|
+| Framework Preset | **Other** (or Vite) |
+| Build Command | `npm run build` |
+| Output Directory | **`dist`** |
+| Install Command | `npm install` |
+
+Do **not** set Output Directory to `.` — that serves the dev `index.html` and the app will not load.
+
+After saving, click **Redeploy** → check **Use existing build cache** is **off**.
 
 ## User flow
 
 1. **Home** — Scan, quote, projects
-2. **Scan Room** — Mark wall corners, confirm measurement
+2. **Scan Room** — Mark wall corners, calibrate one dimension, confirm
 3. **3D Room View** — Isometric room summary
-4. **Colour Preview** — Swatches and finish selector
+4. **Colour Preview** — Wall-only colour overlay
 5. **Quote Summary** — Send quote / PDF
 6. **Client Preview** — What the client sees
 
 ## Important
 
-> Photo marking is for visual preview. Quote calculations use confirmed measurements — not fake AI scanning.
+> Photo marking is guided measurement — enter one real dimension and we calculate the rest. Not automatic LiDAR. Confirm with a tape measure for quotes.
 
-API integrations are hidden in Profile → Settings (coming soon).
+Colour preview is approximate — always check a physical sample.
 
 ## Tech
 
@@ -38,4 +56,3 @@ API integrations are hidden in Profile → Settings (coming soon).
 - Tailwind CSS v4
 - Framer Motion
 - Zustand + localStorage
-- PWA manifest + service worker
